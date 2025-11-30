@@ -334,6 +334,10 @@ int main() {
                 cin.get();
                 return 0;
             }
+            default: {
+                cout << "Invalid Input.." << endl;
+                break;
+            }
         }
     }
 return 0;
