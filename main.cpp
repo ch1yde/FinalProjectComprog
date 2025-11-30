@@ -126,6 +126,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                             cin >> efuel;
                             fuel[editTrip - 1] = efuel;
                             efficiency[editTrip - 1] = distances[editTrip - 1] / fuel[editTrip - 1];
+                            cost[editTrip - 1] = fuel[editTrip - 1] * price[editTrip - 1];
                             cout << "Fuel used has been edited successfully!" << endl;
                             this_thread::sleep_for(chrono::seconds(2));
                             break;
@@ -174,6 +175,9 @@ void displayRecord(string routes[], int recordCount, double distances[], double 
         cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
         for(int i = 0; i < recordCount; i++) {
         cout << i + 1 << " | "  << routes[i] << " | " << distances[i] << " | " << fuel[i] <<  " | " << price[i] << " | " << efficiency[i] << " | " << cost[i] << endl;
+        cout << "Press Enter to back to Main Menu.";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
        }
        
     }
@@ -215,7 +219,9 @@ void recordDelete(string routes[], int &recordCount, double distances[], double 
                 }
                 recordCount = recordCount - 1;
 
-                cout << "Trip has been Deleted.\n\n";
+                cout << "Trip has been Deleted. Press Enter to continue...\n\n";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
             }
             
            
@@ -242,7 +248,7 @@ int main() {
     while(true) {
         center_text();
         cin >> choice;
-
+        cout << endl;
         switch (choice) {
             case 1: {
                 addtrip(routes, distances, fuel, efficiency, cost, price, choice, recordCount);
