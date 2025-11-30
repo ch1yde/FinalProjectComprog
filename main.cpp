@@ -143,6 +143,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                         
                         case 5: {
                             cout << "Editing cancelled. Back to Main menu.\n\n";
+                            this_thread::sleep_for(chrono::seconds(2));
                             break;
                         }
                         default: {
