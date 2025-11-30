@@ -31,7 +31,7 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
     char saveChoice;
 
     cout << "Enter Route/Destination (e.g. Oriental Mindoro - Batangas): ";
-    cin.ignore();
+    cin.ignore(); 
     getline(cin,iroute);
     cout << "Enter distance (km): ";
     cin >> idist;
@@ -42,7 +42,6 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
 
     ieff = idist / ifuel;
     icost = ifuel * iprice;
-
     cout << "Fuel efficiency: " << ieff << "km/L" << endl;
     cout << fixed << setprecision(2) << "Trip cost: Php " << icost << endl;
 
@@ -63,7 +62,7 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
                 recordCount = recordCount + 1;
 
                 cout << "Data saved successfully!\nPress Enter to Continue...";
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cin.get();
                 break;
             };
@@ -80,7 +79,6 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
 void editRecord (string routes[], int recordCount, double distances[], double fuel[], double efficiency[], double price[], double cost[]) {
     if(recordCount > 0) {
         while(true) {
-            
             cout << "Which Trip to be edited?" << endl;
             this_thread::sleep_for(chrono::seconds(2)); //to delay the display of record
             cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
@@ -91,7 +89,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
         cin >> editTrip;
             if(editTrip <= 0 || editTrip > recordCount) {
                 cin.clear();
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Please input a valid trip number...\n";
                 this_thread::sleep_for(chrono::seconds(1));
                 continue;
@@ -187,6 +185,52 @@ void displayRecord(string routes[], int recordCount, double distances[], double 
 
 };
 
+//Delete a Record
+void recordDelete(string routes[], int &recordCount, double distances[], double fuel[], double efficiency[], double price[], double cost[]) {
+    if(recordCount > 0) {
+    while(true) {
+        cout << "Which Trip you wish to delete?" << endl;
+            this_thread::sleep_for(chrono::seconds(2)); //to delay the display of record
+            cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
+        for(int i = 0; i < recordCount; i++) {
+        cout << i + 1 << " | "  << routes[i] << " | " << distances[i] << " | " << fuel[i] <<  " | " << price[i] << " | " << efficiency[i] << " | " << cost[i] << endl;
+        }
+        int TripDel;
+        cin >> TripDel;
+            if(TripDel <= 0 || TripDel > recordCount) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Please input a valid trip number...\n";
+                this_thread::sleep_for(chrono::seconds(1));
+                continue;
+            }
+            else {
+                for(int i = TripDel - 1; i < recordCount - 1; i++) {
+                    routes[i] = routes[i + 1];
+                    distances[i] = distances[i + 1];
+                    fuel[i] = fuel[i + 1];
+                    efficiency[i] = efficiency[i + 1];
+                    price[i] = price[i + 1];
+                    cost[i] = cost[i + 1];
+                }
+                recordCount = recordCount - 1;
+
+                cout << "Trip has been Deleted.\n\n";
+            }
+            
+           
+        break;
+        }
+        
+    }
+    else {
+        cout << "No previous trips to delete..." << endl;
+        this_thread::sleep_for(chrono::seconds(2));
+        cout << endl;
+        }
+            
+};
+
 //psst, gising, tapos na granny
 
 int main() {
@@ -212,6 +256,16 @@ int main() {
             case 3: {
                 displayRecord(routes, recordCount, distances, fuel, efficiency, cost, price);
                 break;
+            }
+            case 4: {
+                recordDelete(routes, recordCount, distances, fuel, efficiency, cost, price);
+                break;
+            }
+            case 5: {
+                cout << "Thank you for Using the Fuel Efficiency Tracker.\nPress Enter to Exit.";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
+                return 0;
             }
         }
     }
