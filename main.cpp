@@ -33,12 +33,64 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
     cout << "Enter Route/Destination (e.g. Oriental Mindoro - Batangas): ";
     cin.ignore(); 
     getline(cin,iroute);
-    cout << "Enter distance (km): ";
-    cin >> idist;
-    cout << "Enter fuel used (L): ";
-    cin >> ifuel;
-    cout << "Enter fuel price in Php: ";
-    cin >> iprice;
+    
+    while(true) {
+        cout << "Enter distance (km): ";
+        cin >> idist;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Distance cannot have letters." << endl;
+            this_thread::sleep_for(chrono::seconds(1));
+            continue;
+        }
+        else if(idist <= 0) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Distance cannot be a negative number or equal to zero..." << endl;
+        }
+        else {
+            break;
+        }
+    }
+    while(true) {
+        cout << "Enter fuel used (L): ";
+        cin >> ifuel;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Fuel used cannot have letters." << endl;
+            this_thread::sleep_for(chrono::seconds(1));
+            continue;
+        }
+        else if(ifuel <= 0) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Fuel used cannot be a negative number or equal to zero..." << endl;
+        }
+        else {
+            break;
+        }
+    }
+    while(true) {
+        cout << "Enter fuel price in Php: ";
+        cin >> iprice;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Fuel price cannot have letters." << endl;
+            this_thread::sleep_for(chrono::seconds(1));
+            continue;
+        }
+        else if(iprice <= 0) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Fuel price cannot be a negative number or equal to zero..." << endl;
+        }
+        else {
+            break;
+    }
+}
 
     ieff = idist / ifuel;
     icost = ifuel * iprice;
@@ -48,31 +100,39 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
     this_thread::sleep_for(chrono::seconds(2));
 
         cout << "Save this record?: (Y/N): ";
-        cin >> saveChoice;
+        do{
+            cin >> saveChoice;
+            switch (saveChoice) {
+                case 'y':
+                case 'Y': {
+                    routes[recordCount] = iroute;
+                    distances[recordCount] = idist;
+                    fuel[recordCount] = ifuel;
+                    efficiency[recordCount] = ieff;
+                    cost[recordCount] = icost;
+                    price[recordCount] = iprice;
+                    recordCount = recordCount + 1;
 
-        switch (saveChoice) {
-            case 'y':
-            case 'Y': {
-                routes[recordCount] = iroute;
-                distances[recordCount] = idist;
-                fuel[recordCount] = ifuel;
-                efficiency[recordCount] = ieff;
-                cost[recordCount] = icost;
-                price[recordCount] = iprice;
-                recordCount = recordCount + 1;
+                    cout << "Data saved successfully!\nPress Enter to Continue...";
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cin.get();
+                    break;
+                };
 
-                cout << "Data saved successfully!\nPress Enter to Continue...";
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cin.get();
-                break;
-            };
-
-            case 'N':
-            case 'n':  {
-                cout << "Data Discarded..";
-                break;
-            };
+                case 'N':
+                case 'n':  {
+                    cout << "Data Discarded..";
+                    break;
+                };
+                
+                default: {
+                    cout << "Please enter Y/N only.";
+                    break;
+                }
+            }
         }
+        while(saveChoice != 'Y' && saveChoice != 'y' && saveChoice != 'n' && saveChoice != 'N');
+        
 };
 
 //choice 2 to do Edit a record
@@ -105,7 +165,8 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                     switch(choiceEdit) {
                         case 1: {
                             cout << "Enter a New route: ";
-                            cin >> eroute;
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            getline(cin,eroute);
                             routes[editTrip - 1] = eroute;
                             cout << "Route has been edited Successfully!" << endl;
                             this_thread::sleep_for(chrono::seconds(2));
@@ -144,7 +205,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                         }
                         
                         case 5: {
-                            cout << "Editing cancelled. Back to Main menu.\n\n";
+                            cout << "Back to Main menu\n\n";
                             this_thread::sleep_for(chrono::seconds(2));
                             break;
                         }
