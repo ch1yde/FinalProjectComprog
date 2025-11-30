@@ -117,6 +117,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                             cout << "Enter a New Distance: ";
                             cin >> edist;
                             distances[editTrip - 1] = edist;
+                            efficiency[editTrip - 1] = distances[editTrip - 1] / fuel[editTrip - 1];
                             cout << "Distance has been edited successfully!" << endl;
                             this_thread::sleep_for(chrono::seconds(2));
                             break;
@@ -126,6 +127,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                             cout << "Enter a new Fuel used: ";
                             cin >> efuel;
                             fuel[editTrip - 1] = efuel;
+                            efficiency[editTrip - 1] = distances[editTrip - 1] / fuel[editTrip - 1];
                             cout << "Fuel used has been edited successfully!" << endl;
                             this_thread::sleep_for(chrono::seconds(2));
                             break;
@@ -135,6 +137,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
                             cout << "Enter a new fuel price: ";
                             cin >> eprice;
                             price[editTrip - 1] = eprice;
+                            cost[editTrip - 1] = price[editTrip - 1] * fuel[editTrip - 1];
 
                             cout << "Fuel price has been edited successfully!" << endl;
                             this_thread::sleep_for(chrono::seconds(2));
