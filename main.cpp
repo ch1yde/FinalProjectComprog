@@ -4,13 +4,12 @@
 #include <chrono>
 using namespace std;
 
-const int console_width = 50;
-string line(console_width,'=');
+
 const int NUMTrip = 50;
 
 
 //centering a text
-void center_text(string text = "FUEL TRACKER", int width = 50) {
+void center_text(string text = "FUEL TRACKER", int width = 100) {
     
     int padding = (width - text.length()) / 2;
     cout << string(width, '=') << endl;
@@ -138,12 +137,27 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
 //choice 2 to do Edit a record
 void editRecord (string routes[], int &recordCount, double distances[], double fuel[], double price[], double efficiency[], double cost[]) {
     if(recordCount > 0) {
+        int width = 100;
         while(true) {
             cout << "Which Trip to be edited?" << endl;
-            this_thread::sleep_for(chrono::seconds(2)); //to delay the display of record
-            cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
+            this_thread::sleep_for(chrono::seconds(1)); //to delay the display of record
+            cout << left << setw(6) << "No." << " | "
+                << left << setw(25) << "Route" << " | "
+                << right << setw(9) << "Distance" << " | "
+                << right << setw(9) << "Fuel" << " | "
+                << right << setw(11) << "Fuel Price" << " | "
+                << right << setw(11) << "Efficiency" << " | "
+                << right << setw(11) << "Cost" << endl;
+            cout << string(width, '-') << endl;
+
         for(int i = 0; i < recordCount; i++) {
-        cout << i + 1 << " | "  << routes[i] << " | " << distances[i] << " | " << fuel[i] <<  " | " << price[i] << " | " << efficiency[i] << " | " << cost[i] << endl;
+            cout << left << setw(6) << i + 1 << " | "
+                << left << setw(25) << routes[i] << " | "
+                << right << setw(9) << distances[i] << " | "
+                << right << setw(9) << fuel[i] << " | "
+                << right << setw(11) << price[i] << " | "
+                << right << setw(11) << efficiency[i] << " | "
+                << right << setw(11) << cost[i] << endl;
         }
         int editTrip;
         cin >> editTrip;
@@ -233,10 +247,24 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
 //choice 3 to display a record
 void displayRecord(string routes[], int &recordCount, double distances[], double fuel[], double price[], double efficiency[], double cost[]) {
     if(recordCount > 0) {
-        cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
+        int width = 100;
+        cout << left << setw(6) << "No." << " | "
+                << left << setw(25) << "Route" << " | "
+                << right << setw(9) << "Distance" << " | "
+                << right << setw(9) << "Fuel" << " | "
+                << right << setw(11) << "Fuel Price" << " | "
+                << right << setw(11) << "Efficiency" << " | "
+                << right << setw(11) << "Cost" << endl;
+        cout << string(width, '-') << endl;
+
         for(int i = 0; i < recordCount; i++) {
-        cout << i + 1 << " | "  << routes[i] << " | " << distances[i] << " | " << fuel[i] <<  " | " << price[i] << " | " << efficiency[i] << " | " << cost[i] << endl;
-        
+            cout << left << setw(6) << i + 1 << " | "
+                    << left << setw(25) << routes[i] << " | "
+                    << right << setw(9) << distances[i] << " | "
+                    << right << setw(9) << fuel[i] << " | "
+                    << right << setw(11) << price[i] << " | "
+                    << right << setw(11) << efficiency[i] << " | "
+                    << right << setw(11) << cost[i] << endl;
        }
        cout << "Press Enter to back to Main Menu.";
        cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -254,13 +282,28 @@ void displayRecord(string routes[], int &recordCount, double distances[], double
 //Delete a Record
 void recordDelete(string routes[], int &recordCount, double distances[], double fuel[], double price[], double efficiency[] , double cost[]) {
     if(recordCount > 0) {
-    while(true) {
+    int width = 100;
+        while(true) {
         cout << "Which Trip you wish to delete?" << endl;
-            this_thread::sleep_for(chrono::seconds(2)); //to delay the display of record
-            cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
-        for(int i = 0; i < recordCount; i++) {
-        cout << i + 1 << " | "  << routes[i] << " | " << distances[i] << " | " << fuel[i] <<  " | " << price[i] << " | " << efficiency[i] << " | " << cost[i] << endl;
-        }
+        this_thread::sleep_for(chrono::seconds(2)); //to delay the display of record
+        cout << left << setw(6) << "No." << " | "
+            << left << setw(25) << "Route" << " | "
+            << right << setw(9) << "Distance" << " | "
+            << right << setw(9) << "Fuel" << " | "
+            << right << setw(11) << "Fuel Price" << " | "
+            << right << setw(11) << "Efficiency" << " | "
+            << right << setw(11) << "Cost" << endl;
+        cout << string(width, '-') << endl;
+        
+            for(int i = 0; i < recordCount; i++) {
+            cout << left << setw(6) << i + 1 << " | "
+                << left << setw(25) << routes[i] << " | "
+                << right << setw(9) << distances[i] << " | "
+                << right << setw(9) << fuel[i] << " | "
+                << right << setw(11) << price[i] << " | "
+                << right << setw(11) << efficiency[i] << " | "
+                << right << setw(11) << cost[i] << endl;
+            }
         int TripDel;
         cin >> TripDel;
             if(TripDel <= 0 || TripDel > recordCount) {
@@ -298,8 +341,6 @@ void recordDelete(string routes[], int &recordCount, double distances[], double 
         }
             
 };
-
-//psst, gising, tapos na granny
 
 int main() {
     string routes[NUMTrip];
