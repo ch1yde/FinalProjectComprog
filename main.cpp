@@ -25,7 +25,7 @@ void center_text(string text = "FUEL TRACKER", int width = 50) {
 };
 
 //choice 1 adding a trip
-void addtrip (string routes[], double distances[], double fuel[], double efficiency[], double cost[], double price[], int choice, int &recordCount) {
+void addtrip (string routes[], double distances[], double fuel[], double price[], double efficiency[], double cost[], int choice, int &recordCount) {
     double idist, ifuel, ieff, icost, iprice;
     string iroute;
     char saveChoice;
@@ -136,7 +136,7 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
 };
 
 //choice 2 to do Edit a record
-void editRecord (string routes[], int recordCount, double distances[], double fuel[], double efficiency[], double price[], double cost[]) {
+void editRecord (string routes[], int &recordCount, double distances[], double fuel[], double price[], double efficiency[], double cost[]) {
     if(recordCount > 0) {
         while(true) {
             cout << "Which Trip to be edited?" << endl;
@@ -231,7 +231,7 @@ void editRecord (string routes[], int recordCount, double distances[], double fu
 
 
 //choice 3 to display a record
-void displayRecord(string routes[], int recordCount, double distances[], double fuel[], double efficiency[], double cost[], double price[]) {
+void displayRecord(string routes[], int &recordCount, double distances[], double fuel[], double price[], double efficiency[], double cost[]) {
     if(recordCount > 0) {
         cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
         for(int i = 0; i < recordCount; i++) {
@@ -252,7 +252,7 @@ void displayRecord(string routes[], int recordCount, double distances[], double 
 };
 
 //Delete a Record
-void recordDelete(string routes[], int &recordCount, double distances[], double fuel[], double efficiency[], double price[], double cost[]) {
+void recordDelete(string routes[], int &recordCount, double distances[], double fuel[], double price[], double efficiency[] , double cost[]) {
     if(recordCount > 0) {
     while(true) {
         cout << "Which Trip you wish to delete?" << endl;
@@ -313,20 +313,20 @@ int main() {
         cout << endl;
         switch (choice) {
             case 1: {
-                addtrip(routes, distances, fuel, efficiency, cost, price, choice, recordCount);
+                addtrip(routes, distances, fuel, price, efficiency, cost, choice, recordCount);
                 break;
             }
 
             case 2: {
-                editRecord(routes, recordCount, distances, fuel, efficiency, price, cost);
+                editRecord(routes, recordCount, distances, fuel, price, efficiency, cost);
                 break;
             }
             case 3: {
-                displayRecord(routes, recordCount, distances, fuel, efficiency, cost, price);
+                displayRecord(routes, recordCount, distances, fuel, price, efficiency, cost);
                 break;
             }
             case 4: {
-                recordDelete(routes, recordCount, distances, fuel, efficiency, cost, price);
+                recordDelete(routes, recordCount, distances, fuel, price, efficiency, cost);
                 break;
             }
             case 5: {
