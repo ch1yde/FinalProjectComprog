@@ -31,7 +31,7 @@ void addtrip (string routes[], double distances[], double fuel[], double efficie
     char saveChoice;
 
     cout << "Enter Route/Destination (e.g. Oriental Mindoro - Batangas): ";
-    cin.ignore(); 
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     getline(cin,iroute);
     
     while(true) {
@@ -236,10 +236,11 @@ void displayRecord(string routes[], int recordCount, double distances[], double 
         cout << "Trip No. | Route | Distance | Fuel Used | Fuel Price | Efficiency | Cost" << endl;
         for(int i = 0; i < recordCount; i++) {
         cout << i + 1 << " | "  << routes[i] << " | " << distances[i] << " | " << fuel[i] <<  " | " << price[i] << " | " << efficiency[i] << " | " << cost[i] << endl;
-        cout << "Press Enter to back to Main Menu.";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
+        
        }
+       cout << "Press Enter to back to Main Menu.";
+       cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
        
     }
     else {      
