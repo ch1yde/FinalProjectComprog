@@ -4,7 +4,7 @@
 #include <chrono>
 using namespace std;
 
-
+int width = 100;
 const int NUMTrip = 50;
 
 
@@ -39,14 +39,17 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
         if(cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Distance cannot have letters." << endl;
+            cout << "Distance cannot have letters.";
             this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
             continue;
         }
         else if(idist <= 0) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Distance cannot be a negative number or equal to zero..." << endl;
+            cout << "Distance cannot be a negative number or equal to zero...";
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
         }
         else {
             break;
@@ -58,14 +61,18 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
         if(cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Fuel used cannot have letters." << endl;
+            cout << "Fuel used cannot have letters.";
             this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
             continue;
         }
         else if(ifuel <= 0) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Fuel used cannot be a negative number or equal to zero..." << endl;
+            cout << "Fuel used cannot be a negative number or equal to zero...";
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
+
         }
         else {
             break;
@@ -77,14 +84,17 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
         if(cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Fuel price cannot have letters." << endl;
+            cout << "Fuel price cannot have letters.";
             this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
             continue;
         }
         else if(iprice <= 0) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Fuel price cannot be a negative number or equal to zero..." << endl;
+            cout << "Fuel price cannot be a negative number or equal to zero...";
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
         }
         else {
             break;
@@ -93,12 +103,14 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
 
     ieff = idist / ifuel;
     icost = ifuel * iprice;
-    cout << "Fuel efficiency: " << ieff << "km/L" << endl;
+    
+    cout << endl << string(width, '-') << endl;
+    cout << "\nFuel efficiency: " << ieff << "km/L" << endl;
     cout << fixed << setprecision(2) << "Trip cost: Php " << icost << endl;
 
-    this_thread::sleep_for(chrono::seconds(2));
+    this_thread::sleep_for(chrono::seconds(1));
 
-        cout << "Save this record?: (Y/N): ";
+        cout << "\nSave this record?: (Y/N): ";
         do{
             cin >> saveChoice;
             switch (saveChoice) {
@@ -112,7 +124,7 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
                     price[recordCount] = iprice;
                     recordCount = recordCount + 1;
 
-                    cout << "Data saved successfully!\nPress Enter to Continue...";
+                    cout << "\nData saved successfully! Press Enter to Continue...";
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cin.get();
                     break;
@@ -120,12 +132,15 @@ void addtrip (string routes[], double distances[], double fuel[], double price[]
 
                 case 'N':
                 case 'n':  {
-                    cout << "Data Discarded..";
+                    cout << "Data Discarded. Press Enter to continue...";
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cin.get();
+                    cout << endl;
                     break;
                 };
                 
                 default: {
-                    cout << "Please enter Y/N only.";
+                    cout << "Please enter Y/N only: ";
                     break;
                 }
             }
@@ -158,23 +173,27 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
                 << right << setw(11) << price[i] << " | "
                 << right << setw(11) << efficiency[i] << " | "
                 << right << setw(11) << cost[i] << endl;
+                
         }
+        cout << "[0] Exit\n\nEnter Trip No.: ";
         int editTrip;
         cin >> editTrip;
-            if(editTrip <= 0 || editTrip > recordCount) {
+            if(editTrip < 0 || editTrip > recordCount) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Please input a valid trip number...\n";
+                cout << "Please input a valid trip number...";
                 this_thread::sleep_for(chrono::seconds(1));
                 continue;
             }
-        
+            else if (editTrip == 0) {
+                break;
+            }
             else {
                 string eroute;
                 double edist, efuel, eEff, eCost, eprice;
                 int choiceEdit;
                 do {
-                cout << "Which one to edit?\n[1] Route\n[2] Distance\n[3] Fuel\n[4] Fuel Price\n[5] Exit\n\nEnter your choice: " << endl;
+                cout << "Which one to edit?\n[1] Route\n[2] Distance\n[3] Fuel\n[4] Fuel Price\n[5] Exit\n\nEnter your choice: ";
                     cin >> choiceEdit;
                     switch(choiceEdit) {
                         case 1: {
@@ -183,7 +202,7 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
                             getline(cin,eroute);
                             routes[editTrip - 1] = eroute;
                             cout << "Route has been edited Successfully!" << endl;
-                            this_thread::sleep_for(chrono::seconds(2));
+                            this_thread::sleep_for(chrono::seconds(1));
                             break;
                         }
                         case 2: {
@@ -192,7 +211,7 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
                             distances[editTrip - 1] = edist;
                             efficiency[editTrip - 1] = distances[editTrip - 1] / fuel[editTrip - 1];
                             cout << "Distance has been edited successfully!" << endl;
-                            this_thread::sleep_for(chrono::seconds(2));
+                            this_thread::sleep_for(chrono::seconds(1));
                             break;
                         }
                         
@@ -203,7 +222,7 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
                             efficiency[editTrip - 1] = distances[editTrip - 1] / fuel[editTrip - 1];
                             cost[editTrip - 1] = fuel[editTrip - 1] * price[editTrip - 1];
                             cout << "Fuel used has been edited successfully!" << endl;
-                            this_thread::sleep_for(chrono::seconds(2));
+                            this_thread::sleep_for(chrono::seconds(1));
                             break;
                         }
                         
@@ -214,17 +233,19 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
                             cost[editTrip - 1] = price[editTrip - 1] * fuel[editTrip - 1];
 
                             cout << "Fuel price has been edited successfully!" << endl;
-                            this_thread::sleep_for(chrono::seconds(2));
+                            this_thread::sleep_for(chrono::seconds(1));
                             break;
                         }
                         
                         case 5: {
                             cout << "Back to Main menu\n\n";
-                            this_thread::sleep_for(chrono::seconds(2));
+                            this_thread::sleep_for(chrono::seconds(1));
                             break;
                         }
                         default: {
                             cout << "Input a valid number..\n\n";
+                            this_thread::sleep_for(chrono::seconds(1));
+                            cout << endl;
                             break;
                         }
                     };
@@ -237,9 +258,9 @@ void editRecord (string routes[], int &recordCount, double distances[], double f
     }
     
     else {      
-        cout << "No previous trips to edit..." << endl;
-        this_thread::sleep_for(chrono::seconds(2));
-        cout << endl;
+        cout << "No previous trips to edit...";
+        this_thread::sleep_for(chrono::seconds(1));
+        cout << endl << endl;
     }
 };
 
@@ -266,15 +287,15 @@ void displayRecord(string routes[], int &recordCount, double distances[], double
                     << right << setw(11) << efficiency[i] << " | "
                     << right << setw(11) << cost[i] << endl;
        }
-       cout << "Press Enter to back to Main Menu.";
+       cout << endl<< "Press Enter to continue...";
        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
        
     }
     else {      
-        cout << "No previous trips to display..." << endl;
-        this_thread::sleep_for(chrono::seconds(2));
-        cout << endl;
+        cout << "No previous trips to display...";
+        this_thread::sleep_for(chrono::seconds(1));
+        cout << endl << endl;
         }
 
 };
@@ -284,8 +305,9 @@ void recordDelete(string routes[], int &recordCount, double distances[], double 
     if(recordCount > 0) {
     int width = 100;
         while(true) {
-        cout << "Which Trip you wish to delete?" << endl;
-        this_thread::sleep_for(chrono::seconds(2)); //to delay the display of record
+        cout << "Which Trip you wish to delete?";
+        this_thread::sleep_for(chrono::seconds(1)); //to delay the display of record
+        cout << endl;
         cout << left << setw(6) << "No." << " | "
             << left << setw(25) << "Route" << " | "
             << right << setw(9) << "Distance" << " | "
@@ -304,14 +326,19 @@ void recordDelete(string routes[], int &recordCount, double distances[], double 
                 << right << setw(11) << efficiency[i] << " | "
                 << right << setw(11) << cost[i] << endl;
             }
+            cout << endl << "[0] Cancel\nEnter Trip No.: ";
         int TripDel;
         cin >> TripDel;
-            if(TripDel <= 0 || TripDel > recordCount) {
+            if(TripDel < 0 || TripDel > recordCount) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Please input a valid trip number...\n";
                 this_thread::sleep_for(chrono::seconds(1));
                 continue;
+            }
+            else if(TripDel == 0) {
+                cout << endl;
+                break;
             }
             else {
                 for(int i = TripDel - 1; i < recordCount - 1; i++) {
@@ -324,9 +351,10 @@ void recordDelete(string routes[], int &recordCount, double distances[], double 
                 }
                 recordCount = recordCount - 1;
 
-                cout << "Trip has been Deleted. Press Enter to continue...\n\n";
+                cout << "Trip has been Deleted. Press Enter to continue...";
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cin.get();
+                cout << endl;
             }
             
            
@@ -335,9 +363,9 @@ void recordDelete(string routes[], int &recordCount, double distances[], double 
         
     }
     else {
-        cout << "No previous trips to delete..." << endl;
-        this_thread::sleep_for(chrono::seconds(2));
-        cout << endl;
+        cout << "No previous trips to delete...";
+        this_thread::sleep_for(chrono::seconds(1));
+        cout << endl << endl;
         }
             
 };
@@ -351,6 +379,16 @@ int main() {
     while(true) {
         center_text();
         cin >> choice;
+        if(choice <= 0 || choice > 5) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid choice number.";
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << endl;
+            continue;
+
+            
+        }
         cout << endl;
         switch (choice) {
             case 1: {
@@ -378,6 +416,7 @@ int main() {
             }
             default: {
                 cout << "Invalid Input.." << endl;
+                this_thread::sleep_for(chrono::seconds(1));
                 break;
             }
         }
